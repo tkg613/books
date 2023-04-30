@@ -22,7 +22,7 @@ const registerUser = async function(req, res) {
       password: hashedPassword
     })
 
-    res.json(user)
+    res.status(201).json(user)
 
   } catch (error) {
     console.error(error.message)
@@ -30,7 +30,6 @@ const registerUser = async function(req, res) {
   }
 
 }
-
 module.exports = {
   registerUser
 }

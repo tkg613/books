@@ -1,11 +1,10 @@
 const express = require('express')
 const router = express.Router()
 const auth = require('../middlewares/auth/auth')
-const {getUser} = require('../controllers/authController')
+const {getUser, login} = require('../controllers/authController')
+const {validateUser} = require('../middlewares/validators/loginValidator')
 
-// @route  GET api/auth
-// @desc   Test
-// @access Public
-router.get('/', auth, getUser)
+
+router.get('/', auth, getUser).post('/', validateUser, login)
 
 module.exports = router

@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 const User = require('../models/User')
 
 const registerUser = async function(req, res) {
@@ -22,7 +23,22 @@ const registerUser = async function(req, res) {
       password: hashedPassword
     })
 
-    res.status(201).json(user)
+    const payload = {
+      user: {
+        id: user.id
+      }
+    }
+    jwt.sign(
+      payload, 
+      process.env.JWT_SECRET, 
+      {expiresIn: 3600000}, 
+      (error, token) => {
+        if (error){
+          throw error
+        }
+        res.json({token})
+      }
+    )
 
   } catch (error) {
     console.error(error.message)
@@ -30,6 +46,7 @@ const registerUser = async function(req, res) {
   }
 
 }
+
 module.exports = {
   registerUser
 }

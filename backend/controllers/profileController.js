@@ -90,9 +90,10 @@ const createProfile = async function(req, res) {
     if (profile) {
       // Update
       profile = await Profile.findOneAndUpdate(
-        {user: req.user.id}, 
-        {$set: profileFields}, 
-        {new: true})
+          {user: req.user.id}, 
+          {$set: profileFields}, 
+          {new: true}
+        )
 
         res.json(profile)
     }

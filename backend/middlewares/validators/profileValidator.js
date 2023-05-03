@@ -1,8 +1,7 @@
 const {check, validationResult} = require('express-validator')
 
-exports.loginValidator = [
-  check('email', 'Please include a valid email.').isEmail(),
-  check('password', 'Password is required.').exists(),
+exports.profileValidator = [
+  check('status', 'Status is required.').not().isEmpty(),
   (req, res, next) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()){
